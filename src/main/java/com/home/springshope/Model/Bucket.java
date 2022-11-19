@@ -13,7 +13,7 @@ public class Bucket {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SEQ)
-    @SequenceGenerator(name = SEQ, sequenceName = SEQ)
+    @SequenceGenerator(name = SEQ, sequenceName = SEQ,allocationSize = 1)
     private Long id;
 
 
@@ -23,10 +23,20 @@ public class Bucket {
 
 
     @ManyToMany
-    @JoinTable(name = "buckets_products",
+    @JoinTable(name = "bucket_products",
             joinColumns = @JoinColumn(name = "bucket_id"),
             inverseJoinColumns = @JoinColumn(name = "product_id"))
     private List<Product> Products;
+
+
+
+
+
+
+
+
+
+
 
 
     public Long getId() {

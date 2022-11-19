@@ -4,7 +4,7 @@ package com.home.springshope.Model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 public class User {
 
     private static final String SEQ = "user_seq";
@@ -12,14 +12,14 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SEQ)
-    @SequenceGenerator(name = SEQ, sequenceName = SEQ)
+    @SequenceGenerator(name = SEQ, sequenceName = SEQ,allocationSize = 1)
     private Long id;
 
     private String name;
 
     private String password;
 
-    private String mail;
+    private String email;
 
     @Enumerated(value = EnumType.STRING)
     private Role role;
@@ -78,12 +78,12 @@ public class User {
         this.password = password;
     }
 
-    public String getMail() {
-        return mail;
+    public String getEmailMail() {
+        return email;
     }
 
-    public void setMail(String mail) {
-        this.mail = mail;
+    public void setEmailMail(String mail) {
+        this.email = mail;
     }
 
     public Role getRole() {

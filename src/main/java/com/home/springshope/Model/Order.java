@@ -18,7 +18,7 @@ public class Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SEQ)
-    @SequenceGenerator(name = SEQ, sequenceName = SEQ)
+    @SequenceGenerator(name = SEQ, sequenceName = SEQ,allocationSize = 1)
     private Long id;
 
     @CreationTimestamp
@@ -32,15 +32,16 @@ public class Order {
     @JoinColumn(name = "user_id")
     private User user;
 
-    private BigDecimal summa;
+    private BigDecimal sum;
 
     private String address;
 
 
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<OrderDetails> orderDetailsList;
+    @OneToMany(mappedBy = "order",cascade = CascadeType.ALL)
+    private List<OrderDetails> details;
 
     @Enumerated(value = EnumType.STRING)
+    @Column(name = "order_status")
     private OrderStatus orderStatus;
 
 
@@ -85,11 +86,11 @@ public class Order {
     }
 
     public BigDecimal getSumma() {
-        return summa;
+        return sum;
     }
 
     public void setSumma(BigDecimal summa) {
-        this.summa = summa;
+        this.sum = summa;
     }
 
     public String getAddress() {
@@ -101,11 +102,11 @@ public class Order {
     }
 
     public List<OrderDetails> getOrderDetailsList() {
-        return orderDetailsList;
+        return details;
     }
 
-    public void setOrderDetailsList(List<OrderDetails> orderDetailsList) {
-        this.orderDetailsList = orderDetailsList;
+    public void setOrderDetailsList(List<OrderDetails> details) {
+        this.details = details;
     }
 
     public OrderStatus getOrderStatus() {

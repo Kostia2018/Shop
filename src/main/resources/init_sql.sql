@@ -2,7 +2,6 @@ create sequence user_seq start 1 increment 1;
 
 create table users (
                        id int8 not null,
-                       archive boolean not null,
                        email varchar(255),
                        name varchar(255),
                        password varchar(255),
@@ -36,7 +35,7 @@ create sequence product_seq start 1 increment 1;
 
 create table products (
                           id int8 not null,
-                          price float8,
+                          price numeric(19, 2),
                           title varchar(255),
                           primary key (id)
 );
@@ -75,9 +74,9 @@ create sequence order_seq start 1 increment 1;
 create table orders (
                         id int8 not null,
                         address varchar(255),
-                        changed timestamp,
+                        updated timestamp,
                         created timestamp,
-                        status varchar(255),
+                        order_status varchar(255),
                         sum numeric(19, 2),
                         user_id int8,
                         primary key (id)

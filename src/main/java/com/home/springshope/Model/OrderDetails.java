@@ -5,7 +5,7 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "order_details")
+@Table(name = "orders_details")
 public class OrderDetails {
 
     private static final String SEQ = "order_details_seq";
@@ -13,11 +13,11 @@ public class OrderDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SEQ)
-    @SequenceGenerator(name = SEQ, sequenceName = SEQ)
+    @SequenceGenerator(name = SEQ, sequenceName = SEQ,allocationSize = 1)
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "oreder_id")
+    @JoinColumn(name = "order_id")
     private Order order;
 
 

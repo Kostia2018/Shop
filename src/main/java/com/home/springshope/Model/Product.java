@@ -13,7 +13,7 @@ public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SEQ)
-    @SequenceGenerator(name = SEQ, sequenceName = SEQ)
+    @SequenceGenerator(name = SEQ, sequenceName = SEQ,allocationSize = 1)
     private Long id;
 
     private BigDecimal price;
