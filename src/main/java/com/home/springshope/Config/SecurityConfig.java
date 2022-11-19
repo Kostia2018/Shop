@@ -3,6 +3,7 @@ package com.home.springshope.Config;
 
 import com.home.springshope.Model.Role;
 import com.home.springshope.Service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -23,14 +24,17 @@ import javax.persistence.Basic;
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity
+@EnableGlobalMethodSecurity(securedEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final UserService userService;
+    private  UserService userService;
 
-    public SecurityConfig(UserService userService) {
+    @Autowired
+    public void setUserService(UserService userService) {
         this.userService = userService;
+
     }
+
 
 
     @Override
