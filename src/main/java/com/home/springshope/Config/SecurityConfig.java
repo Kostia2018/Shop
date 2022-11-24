@@ -10,7 +10,7 @@ import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
-import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
+
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -27,28 +27,25 @@ import javax.persistence.Basic;
 @EnableGlobalMethodSecurity(securedEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private  UserService userService;
+    private UserService userService;
 
     @Autowired
     public void setUserService(UserService userService) {
         this.userService = userService;
-
     }
-
-
 
     @Override
     protected void configure(AuthenticationManagerBuilder aut) throws Exception {
         aut.authenticationProvider(authenticationProvider());
     }
 
-    @Basic
-    private AuthenticationProvider authenticationProvider() {
-        DaoAuthenticationProvider daoAut = new DaoAuthenticationProvider();
+    @Bean
+    public DaoAuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider auth = new DaoAuthenticationProvider();
 
-        daoAut.setUserDetailsService(userService);
-        daoAut.setPasswordEncoder(passwordEncoder());
-        return daoAut;
+        auth.setUserDetailsService(userService);
+        auth.setPasswordEncoder(passwordEncoder());
+        return auth;
     }
 
     @Bean
@@ -59,17 +56,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests()
+        http.authorizeRequests()
                 .antMatchers("/users/new").hasAuthority(Role.ADMIN.name())
-                .anyRequest().permitAll()
-                    .and().formLogin()
-                .loginPage("/login")
+                .anyRequest()
+                .permitAll()
+                  .and()
+                .formLogin()
+                .loginPage("/login.html")
+                .failureUrl("/login-error")
                 .loginProcessingUrl("/auth")
                 .permitAll()
-                     .and()
+                  .and()
                 .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .logoutSuccessUrl("/").deleteCookies("JSESSESIONID")
+                .logoutSuccessUrl("/").deleteCookies("JSESSIONID")
                 .invalidateHttpSession(true)
-                     .and().csrf().disable();
+                .and()
+                .csrf().disable();
+
     }
 }

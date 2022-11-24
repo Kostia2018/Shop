@@ -1,5 +1,7 @@
 package com.home.springshope.Dto;
 
+import com.home.springshope.Model.User;
+
 public class UserDto {
 
     private String name;
@@ -9,24 +11,6 @@ public class UserDto {
     private String email;
 
     private String confirmPassword;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -62,4 +46,19 @@ public class UserDto {
     public void setConfirmPassword(String confirmPassword) {
         this.confirmPassword = confirmPassword;
     }
+
+
+
+    @Override
+    public String toString() {
+        return "UserDto{" +
+                "name='" + name + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", confirmPassword='" + confirmPassword + '\'' +
+                '}';
+    }
+
+
+
 }

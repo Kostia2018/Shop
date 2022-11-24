@@ -15,12 +15,14 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 
 @Service
 public class UserServiceImpl implements UserService {
 
     private final UserRepository repository;
+
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
@@ -66,4 +68,31 @@ public class UserServiceImpl implements UserService {
         return new org.springframework.security.core.userdetails
                 .User(user.getName(), user.getPassword(), role);
     }
+
+    @Override
+    public List<UserDto> getAll() {
+
+
+        List<User> allUser = repository.findAll();
+
+
+        List<UserDto> resaletListDto = allUser.stream().
+                map(u -> toUserDto(u)).
+                collect(Collectors.toList());
+
+
+        return resaletListDto;
+    }
+
+    private UserDto toUserDto(User user) {
+
+        UserDto newDto = new UserDto();
+        newDto.setEmail(user.getEmailMail());
+        newDto.setName(user.getName());
+
+        return newDto;
+
+    }
+
+
 }

@@ -2,12 +2,14 @@ spring:
   jpa:
     hibernate:
       show-sql: true
-
-
   datasource:
     url: jdbc:postgresql://localhost:5432/shop
     username: postgres
     password: password
+  security:
+    user:
+      name: admin
+      password: 123
 
 
 
