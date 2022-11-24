@@ -28,9 +28,6 @@ public class ControllerUser {
     public String getAll(Model model) {
         model.addAttribute("users", service.getAll());
 
-        List<UserDto>dto = service.getAll();
-        dto.forEach(System.out::println);
-
         return "userlist";
 
     }
