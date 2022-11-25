@@ -4,7 +4,7 @@ import com.home.springshope.Model.User;
 
 public class UserDto {
 
-    private String name;
+    private String username;
 
     private String password;
 
@@ -16,11 +16,11 @@ public class UserDto {
 
 
     public String getName() {
-        return name;
+        return username;
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.username = name;
     }
 
     public String getPassword() {
@@ -52,7 +52,7 @@ public class UserDto {
     @Override
     public String toString() {
         return "UserDto{" +
-                "name='" + name + '\'' +
+                "name='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
                 ", confirmPassword='" + confirmPassword + '\'' +
