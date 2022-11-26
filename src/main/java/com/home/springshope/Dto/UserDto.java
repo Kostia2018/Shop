@@ -13,14 +13,12 @@ public class UserDto {
     private String confirmPassword;
 
 
-
-
-    public String getName() {
+    public String getUsername() {
         return username;
     }
 
-    public void setName(String name) {
-        this.username = name;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
@@ -46,19 +44,4 @@ public class UserDto {
     public void setConfirmPassword(String confirmPassword) {
         this.confirmPassword = confirmPassword;
     }
-
-
-
-    @Override
-    public String toString() {
-        return "UserDto{" +
-                "name='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", email='" + email + '\'' +
-                ", confirmPassword='" + confirmPassword + '\'' +
-                '}';
-    }
-
-
-
 }

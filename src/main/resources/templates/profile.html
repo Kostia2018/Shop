@@ -8,13 +8,23 @@
 <body>
 
 <div th:insert="~{fragments/menu :: #nav-menu}"></div>
+
 <h>User profile</h>
+
 <form th:action="@{/users/profile}" th:object="${user}" method="post">
     <table border="1">
+
         <tr>
             <td>Name</td>
             <td><input type="text" th:field="*{username}"></td>
         </tr>
+
+       <tr>
+            <td>Email</td>
+            <td><input type="email" th:field="*{email}"></td>
+        </tr>
+
+
 
         <tr>
             <td>Password</td>
@@ -26,10 +36,7 @@
             <td><input type="password" th:field="*{confirmPassword}"></td>
         </tr>
 
-        <tr>
-            <td>Email</td>
-            <td><input type="email" th:field="*{email}"></td>
-        </tr>
+
 
     </table>
 

@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService {
         }
 
         User user = new User();
-        user.setName(userDto.getName());
+        user.setName(userDto.getUsername());
         user.setEmailMail(userDto.getEmail());
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
         user.setRole(Role.USER);
@@ -89,7 +89,7 @@ public class UserServiceImpl implements UserService {
 
         UserDto newDto = new UserDto();
         newDto.setEmail(user.getEmailMail());
-        newDto.setName(user.getName());
+        newDto.setUsername(user.getName());
 
         return newDto;
 
@@ -99,10 +99,10 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public void updateProfile(UserDto userDto) {
 
-        User updateUser = repository.findFirstByName(userDto.getName());
+        User updateUser = repository.findFirstByName(userDto.getUsername());
 
         if (updateUser == null) {
-            throw new RuntimeException("User not find by name" + userDto.getName());
+            throw new RuntimeException("User not find by name" + userDto.getUsername());
         }
 
 

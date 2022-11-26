@@ -72,7 +72,7 @@ public class ControllerUser {
 
         UserDto userDto = new UserDto();
 
-        userDto.setName(user.getName());
+        userDto.setUsername(user.getName());
         userDto.setEmail(user.getEmailMail());
 
 
@@ -84,7 +84,7 @@ public class ControllerUser {
     @PostMapping("/profile")
     public String updateProfileUser(Model model, Principal principal, UserDto userDto) {
 
-        if (principal == null || !Objects.equals(userDto.getName(), principal.getName())) {
+        if (principal == null || !Objects.equals(userDto.getUsername(), principal.getName())) {
             throw new RuntimeException("User is not authorized");
         }
 
