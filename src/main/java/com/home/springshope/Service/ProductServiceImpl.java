@@ -2,11 +2,15 @@ package com.home.springshope.Service;
 
 import com.home.springshope.Dto.ProductDto;
 import com.home.springshope.Mapper.ProductMapper;
+import com.home.springshope.Model.Bucket;
 import com.home.springshope.Model.Product;
+import com.home.springshope.Model.User;
 import com.home.springshope.Repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -16,9 +20,15 @@ public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
 
+    private final UserService userService;
+
+    private final BucketService bucketService;
+
     @Autowired
-    public ProductServiceImpl(ProductRepository productRepository) {
+    public ProductServiceImpl(ProductRepository productRepository, UserService userService, BucketService bucketService) {
         this.productRepository = productRepository;
+        this.userService = userService;
+        this.bucketService = bucketService;
     }
 
     @Override
@@ -29,5 +39,34 @@ public class ProductServiceImpl implements ProductService {
 
 
         return mapper.fromProductList(productList);
+    }
+
+    @Override
+    @Transactional
+    public void addToUserBucket(Long userId, String name) {
+
+        User user = userService.findByName(name);
+
+        if (user == null) {
+            throw new RuntimeException("User not faund " + name);
+        }
+
+
+        Bucket bucket = user.getBucket();
+
+        if (bucket == null) {
+
+            Bucket newBucket = bucketService.createBucket(user, Collections.singletonList(userId));
+
+            user.setBucket(newBucket);
+
+            userService.save(user);
+        } else {
+
+            bucketService.addProducts(bucket, Collections.singletonList(userId));
+
+        }
+
+
     }
 }
