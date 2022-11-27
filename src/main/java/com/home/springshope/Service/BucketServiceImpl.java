@@ -6,12 +6,15 @@ import com.home.springshope.Model.User;
 import com.home.springshope.Repository.BucketRepository;
 import com.home.springshope.Repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+
+@Service
 public class BucketServiceImpl implements BucketService {
 
     private final ProductRepository productRepository;
@@ -42,7 +45,7 @@ public class BucketServiceImpl implements BucketService {
 
     private List<Product> getRefProductsFromId(List<Long> productId) {
 
-        return productId.stream().map(p -> productRepository.getById(p))
+        return productId.stream().map(p -> productRepository.getOne(p))
                 .collect(Collectors.toList());
 
 
@@ -56,6 +59,8 @@ public class BucketServiceImpl implements BucketService {
         List<Product> newListProduct = (listProduct == null ? new ArrayList<>() : new ArrayList<>(listProduct));
 
         newListProduct.addAll(getRefProductsFromId(productId));
+
+        bucket.setProducts(newListProduct);
 
         bucketRepository.save(bucket);
 

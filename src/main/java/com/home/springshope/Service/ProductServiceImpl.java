@@ -42,8 +42,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    @Transactional
-    public void addToUserBucket(Long userId, String name) {
+
+    public void addToUserBucket(Long productId, String name) {
 
         User user = userService.findByName(name);
 
@@ -56,14 +56,14 @@ public class ProductServiceImpl implements ProductService {
 
         if (bucket == null) {
 
-            Bucket newBucket = bucketService.createBucket(user, Collections.singletonList(userId));
+            Bucket newBucket = bucketService.createBucket(user, Collections.singletonList(productId));
 
             user.setBucket(newBucket);
 
             userService.save(user);
         } else {
 
-            bucketService.addProducts(bucket, Collections.singletonList(userId));
+            bucketService.addProducts(bucket, Collections.singletonList(productId));
 
         }
 

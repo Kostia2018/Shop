@@ -2,8 +2,8 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml"
       xmlns:sec="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html">
 <head>
-  <meta charset="UTF-8">
-  <title>List product</title>
+    <meta charset="UTF-8">
+    <title>List product</title>
 </head>
 <body>
 
@@ -11,21 +11,20 @@
 
 <table border="1" align="center">
 
-  <tr>
-    <td>Title</td>
-    <td>Price</td>
-  </tr>
+    <tr>
+        <td>Title</td>
+        <td>Price</td>
+        <td>Price</td>
+    </tr>
 
-  <tr th:each= "product:${products}">
-    <td th:text="${product.title}">Cheese</td>
-    <td th:text="${product.price}">20</td>
-  </tr>
+    <tr th:each="product:${products}">
+        <td th:text="${product.title}">Cheese</td>
+        <td th:text="${product.price}">20</td>
+        <td><a th:href="@{/products/{id}/bucket(id=${product.id})}">Add to bucket</a></td>
+    </tr>
 
 
 </table>
-
-
-
 
 
 </body>
