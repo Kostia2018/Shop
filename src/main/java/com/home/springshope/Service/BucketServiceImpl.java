@@ -1,5 +1,7 @@
 package com.home.springshope.Service;
 
+import com.home.springshope.Dto.BucketDetailDto;
+import com.home.springshope.Dto.BucketDto;
 import com.home.springshope.Model.Bucket;
 import com.home.springshope.Model.Product;
 import com.home.springshope.Model.User;
@@ -9,8 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 
@@ -21,11 +26,14 @@ public class BucketServiceImpl implements BucketService {
 
     private final BucketRepository bucketRepository;
 
+    private final UserService userService;
+
 
     @Autowired
-    public BucketServiceImpl(ProductRepository productRepository, BucketRepository bucketRepository) {
+    public BucketServiceImpl(ProductRepository productRepository, BucketRepository bucketRepository, UserService userService) {
         this.productRepository = productRepository;
         this.bucketRepository = bucketRepository;
+        this.userService = userService;
     }
 
 
@@ -65,5 +73,44 @@ public class BucketServiceImpl implements BucketService {
         bucketRepository.save(bucket);
 
 
+    }
+
+    @Override
+    public BucketDto getBucketByUser(String name) {
+
+        User user = userService.findByName(name);
+
+        if (user == null || user.getBucket() == null) {
+            return new BucketDto();
+        }
+
+
+        BucketDto newBucketDto = new BucketDto();
+
+        Map<Long, BucketDetailDto> mapByProductIs = new HashMap<>();
+
+        List<Product> products = user.getBucket().getProducts();
+
+        for (Product p : products) {
+
+            BucketDetailDto detail = mapByProductIs.get(p.getId());
+
+            if (detail == null) {
+
+                mapByProductIs.put(p.getId(), new BucketDetailDto(p));
+            } else {
+
+                detail.setAmount(detail.getAmount().add(BigDecimal.valueOf(1.0)));
+
+                detail.setSum(detail.getSum().add(p.getPrice()));
+            }
+        }
+
+        newBucketDto.setDetailsBucket(new ArrayList<>(mapByProductIs.values()));
+
+        newBucketDto.aggregate();
+
+
+        return newBucketDto;
     }
 }
