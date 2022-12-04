@@ -24,7 +24,7 @@ import javax.persistence.Basic;
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(securedEnabled = true,prePostEnabled = true)
+@EnableGlobalMethodSecurity(securedEnabled = true,prePostEnabled = true,jsr250Enabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private UserService userService;
@@ -58,9 +58,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/users").hasAnyAuthority(Role.ADMIN.name(),Role.MANAGER.name())
-                .antMatchers("/users/new").hasAuthority(Role.ADMIN.name())
-                .anyRequest()
-                .permitAll()
+               // .antMatchers("/users/new").hasAuthority(Role.ADMIN.name())
+                .anyRequest().permitAll()
                   .and()
                 .formLogin()
                 .loginPage("/login.html")

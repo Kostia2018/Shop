@@ -5,11 +5,11 @@ import com.home.springshope.Dto.UserDto;
 import com.home.springshope.Model.User;
 import com.home.springshope.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
@@ -36,6 +36,7 @@ public class ControllerUser {
     }
 
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/new")
     public String newUser(Model model) {
 
@@ -43,6 +44,18 @@ public class ControllerUser {
 
         return "user";
     }
+
+    @PostAuthorize("isAuthenticated() and #username == authentication.principal.username")
+    @GetMapping("/{name}/roles")
+    @ResponseBody
+    public String getRoles(@PathVariable("name") String name) {
+
+        User userName = service.findByName(name);
+
+
+        return userName.getRole().name();
+    }
+
 
     @PostMapping("/new")
     public String saveUser(UserDto userDto, Model model) {
