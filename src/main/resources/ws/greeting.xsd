@@ -1,6 +1,6 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-           xmlns:tns="http://kostia.com/springshop/ws/greeting"
-           targetNamespace="http://kostia.com/springshop/ws/greeting"
+           xmlns:tns="http://home.com/springshope/ws/greeting"
+           targetNamespace="http://home.com/springshope/ws/greeting"
            elementFormDefault="qualified">
     <xs:element name="getGreetingRequest">
         <xs:complexType>
