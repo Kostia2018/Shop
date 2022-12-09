@@ -2,6 +2,8 @@ package com.home.springshope.EndPoint;
 
 
 import com.home.springshope.Service.GreetingService;
+import com.home.springshope.ws.greeting.GetGreetingRequest;
+import com.home.springshope.ws.greeting.GetGreetingResponse;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;

@@ -1,6 +1,7 @@
 package com.home.springshope.Service;
 
 
+import com.home.springshope.ws.greeting.Greeting;
 import org.springframework.stereotype.Component;
 
 import javax.xml.datatype.DatatypeConfigurationException;
