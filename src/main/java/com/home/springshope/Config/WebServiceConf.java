@@ -33,13 +33,14 @@ public class WebServiceConf {
 
 
     @Bean(name = "greeting")
-    public DefaultWsdl11Definition defaultWsdl11Definition(XsdSchema xsdSchema) {
+    public DefaultWsdl11Definition defaultWsdl11Definition() {
 
         DefaultWsdl11Definition defaultWsdl11Definition = new DefaultWsdl11Definition();
         defaultWsdl11Definition.setPortTypeName("GreetingPort");
         defaultWsdl11Definition.setLocationUri("/ws");
         defaultWsdl11Definition.setTargetNamespace(NAME_SPACE);
-        defaultWsdl11Definition.setSchema(xsdSchema);
+        defaultWsdl11Definition.setSchema(xsdSchema());
+
 
         return defaultWsdl11Definition;
 
@@ -48,7 +49,7 @@ public class WebServiceConf {
 
     @Bean
     public XsdSchema xsdSchema() {
-        return new SimpleXsdSchema(new ClassPathResource("ws/greeting.xcd"));
+        return new SimpleXsdSchema(new ClassPathResource("ws/greeting.xsd"));
     }
 
 
