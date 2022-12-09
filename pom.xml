@@ -116,7 +116,7 @@
 
                 <configuration>
                     <sources>
-                        <source>${project.basedir}/src/main/resources/ws/products.xsd</source>
+                        <source>${project.basedir}/src/main/resources/ws/greeting.xsd</source>
                     </sources>
 
 
