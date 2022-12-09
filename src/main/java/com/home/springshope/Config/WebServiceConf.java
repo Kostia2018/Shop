@@ -17,6 +17,7 @@ import org.springframework.xml.xsd.XsdSchema;
 public class WebServiceConf {
 
     public static final String NAME_SPACE = "http://home.com/springshope/ws/greeting";
+    public static final String NAME_SPACE_TWO = "http://home.com/springshope/ws/products.xsd";
 
 
     @Bean
@@ -39,7 +40,7 @@ public class WebServiceConf {
         defaultWsdl11Definition.setPortTypeName("GreetingPort");
         defaultWsdl11Definition.setLocationUri("/ws");
         defaultWsdl11Definition.setTargetNamespace(NAME_SPACE);
-        defaultWsdl11Definition.setSchema(xsdSchema());
+        defaultWsdl11Definition.setSchema(xsdGreetingSchema());
 
 
         return defaultWsdl11Definition;
@@ -48,9 +49,27 @@ public class WebServiceConf {
     }
 
     @Bean
-    public XsdSchema xsdSchema() {
+    public XsdSchema xsdGreetingSchema() {
         return new SimpleXsdSchema(new ClassPathResource("ws/greeting.xsd"));
     }
 
+
+    @Bean(name = "products")
+    public DefaultWsdl11Definition productsWsdlDefinition() {
+
+        DefaultWsdl11Definition defaultWsdl11Definition = new DefaultWsdl11Definition();
+
+        defaultWsdl11Definition.setPortTypeName("ProductsPort");
+        defaultWsdl11Definition.setLocationUri("/ws");
+        defaultWsdl11Definition.setTargetNamespace(NAME_SPACE_TWO);
+        defaultWsdl11Definition.setSchema(xsdProductSchema());
+        return defaultWsdl11Definition;
+
+    }
+
+    @Bean
+    public XsdSchema xsdProductSchema() {
+        return new SimpleXsdSchema(new ClassPathResource("ws/products.xsd"));
+    }
 
 }
