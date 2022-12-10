@@ -7,6 +7,7 @@ import com.home.springshope.Model.Product;
 import com.home.springshope.Model.User;
 import com.home.springshope.Repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -24,12 +25,18 @@ public class ProductServiceImpl implements ProductService {
 
     private final BucketService bucketService;
 
+    private final SimpMessagingTemplate simpMessagingTemplate;
+
     @Autowired
-    public ProductServiceImpl(ProductRepository productRepository, UserService userService, BucketService bucketService) {
+    public ProductServiceImpl(ProductRepository productRepository,
+                              UserService userService, BucketService bucketService,
+                              SimpMessagingTemplate simpMessagingTemplate) {
         this.productRepository = productRepository;
         this.userService = userService;
         this.bucketService = bucketService;
+        this.simpMessagingTemplate = simpMessagingTemplate;
     }
+
 
     @Override
     public List<ProductDto> getAll() {
@@ -41,8 +48,8 @@ public class ProductServiceImpl implements ProductService {
         return mapper.fromProductList(productList);
     }
 
-    @Override
 
+    @Override
     public void addToUserBucket(Long productId, String name) {
 
         User user = userService.findByName(name);
@@ -69,4 +76,17 @@ public class ProductServiceImpl implements ProductService {
 
 
     }
+
+    @Override
+    public void addProduct(ProductDto dto) {
+
+        Product product = mapper.toProduct(dto);
+
+        Product productSave = productRepository.save(product);
+
+        simpMessagingTemplate.convertAndSend("/topic/products", ProductMapper.MAPPER.fromProduct(productSave));
+
+    }
+
+
 }
