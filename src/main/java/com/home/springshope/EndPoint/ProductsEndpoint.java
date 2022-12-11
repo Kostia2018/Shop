@@ -7,10 +7,12 @@ import com.home.springshope.ws.products.GetProductsRequest;
 import com.home.springshope.ws.products.GetProductsResponse;
 import com.home.springshope.ws.products.ProductsWS;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
+@Endpoint
 public class ProductsEndpoint {
 
     private static final String NAME_SPASE_PROD = "http://home.com/springshope/ws/products";

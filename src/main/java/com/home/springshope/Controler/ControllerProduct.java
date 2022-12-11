@@ -8,6 +8,7 @@ import com.home.springshope.Service.SessionClick;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -71,6 +72,12 @@ public class ControllerProduct {
 
         return ResponseEntity.status(HttpStatus.CREATED).build();
 
+
+    }
+
+    @MessageMapping("/products")
+    public void messageAddProduct(ProductDto dto) {
+        productService.addProduct(dto);
 
     }
 

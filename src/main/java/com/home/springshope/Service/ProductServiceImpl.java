@@ -78,6 +78,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @Transactional
     public void addProduct(ProductDto dto) {
 
         Product product = mapper.toProduct(dto);
