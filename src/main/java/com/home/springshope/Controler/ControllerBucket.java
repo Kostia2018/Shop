@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.security.Principal;
@@ -23,8 +24,8 @@ public class ControllerBucket {
     }
 
 
-    @GetMapping ("/bucket")
-    public String aboutBucking(Model model, Principal principal) {
+    @GetMapping("/bucket")
+    public String aboutBucket(Model model, Principal principal) {
 
 
         if (principal == null) {
@@ -34,12 +35,23 @@ public class ControllerBucket {
 
             BucketDto bucketDto = bucketService.getBucketByUser(principal.getName());
 
-            model.addAttribute("bucket",bucketDto);
+            model.addAttribute("bucket", bucketDto);
 
         }
 
 
         return "bucket";
+
+    }
+
+    @PostMapping("/bucket")
+    public String commitBucket(Principal principal) {
+
+        if (principal != null) {
+            bucketService.commitBucketToOrder(principal.getName());
+        }
+
+        return "redirect:/bucket";
 
     }
 

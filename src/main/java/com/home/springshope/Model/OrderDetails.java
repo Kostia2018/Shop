@@ -29,13 +29,13 @@ public class OrderDetails {
 
     private BigDecimal price;
 
+    public OrderDetails(Order order, Product product, Long amount) {
+        this.order = order;
+        this.product = product;
+        this.amount = new BigDecimal(amount);
 
 
-
-
-
-
-
+    }
 
 
     public Long getId() {
