@@ -7,4 +7,5 @@ public interface OrderService {
     void saveOrder(Order order);
 
 
+    Order getOrder(Long id);
 }

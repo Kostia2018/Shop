@@ -13,7 +13,7 @@ public class OrderDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SEQ)
-    @SequenceGenerator(name = SEQ, sequenceName = SEQ,allocationSize = 1)
+    @SequenceGenerator(name = SEQ, sequenceName = SEQ, allocationSize = 1)
     private Long id;
 
     @ManyToOne
@@ -33,6 +33,7 @@ public class OrderDetails {
         this.order = order;
         this.product = product;
         this.amount = new BigDecimal(amount);
+        this.price = product.getPrice();
 
 
     }

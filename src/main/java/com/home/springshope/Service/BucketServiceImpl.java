@@ -152,7 +152,7 @@ public class BucketServiceImpl implements BucketService {
                 .collect(Collectors.toList());
 
 
-        BigDecimal sum = BigDecimal.valueOf(orderDetails.stream()
+        BigDecimal sum = new BigDecimal(orderDetails.stream()
                 .map(det -> det.getPrice().multiply(det.getAmount()))
                 .mapToDouble(BigDecimal::doubleValue).sum());
 
