@@ -157,8 +157,8 @@ public class BucketServiceImpl implements BucketService {
                 .mapToDouble(BigDecimal::doubleValue).sum());
 
 
-        order.setSumma(sum);
-        order.setOrderDetailsList(orderDetails);
+        order.setSum(sum);
+        order.setDetails(orderDetails);
         order.setAddress("no address");
 
 
