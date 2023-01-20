@@ -11,14 +11,19 @@
     http://www.springframework.org/schema/integration/http
     https://www.springframework.org/schema/integration/http/spring-integration-http.xsd">
 
+
     <int:channel id="ordersChannel"/>
 
-    <int-http:outbound-channel-adapter id="ordersAdapter"
-                                       url="http://localhost:8090/orders"
-                                       http-method="POST"
-                                       charset="UTF-8"
-                                       channel="ordersChannel">
+
+    <int-http:outbound-channel-adapter  id="ordersAdapter"
+                                        url="http://localhost:8090/orders"
+                                        http-method="POST"
+                                        charset="UTF-8"
+                                        channel="ordersChannel">
+
     </int-http:outbound-channel-adapter>
+
+
 
 
 

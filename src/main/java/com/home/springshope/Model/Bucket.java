@@ -1,7 +1,7 @@
 package com.home.springshope.Model;
 
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
